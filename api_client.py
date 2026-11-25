@@ -8,7 +8,24 @@ BASE_URL = "http://127.0.0.1:8000"
 
 
 def consultar_produto(codigo: str) -> dict:
-    """Consulta um produto pelo código e retorna os dados da API."""
+    """Consulta e valida os dados de um produto na API do professor.
+
+    A execução ocorre em etapas: validação do código, requisição HTTP,
+    verificação do status, leitura do JSON e validação dos dados recebidos.
+    Essa ordem impede que uma resposta de erro seja interpretada como produto.
+
+    Args:
+        codigo: Identificador no formato PRD-XXX, como PRD-001.
+
+    Returns:
+        Dicionário com os dados validados do produto, em caso de sucesso.
+        Nas falhas tratadas, retorna os campos 'erro' e 'mensagem'.
+        Quando a API responde com erro HTTP, inclui também 'status_http'.
+
+    A função realiza somente consultas. A classificação da situação do
+    estoque será implementada separadamente, comparando a quantidade atual
+    com o estoque mínimo.
+    """
     
     # Recusa códigos inválidos antes de acessar a API.
     try:
