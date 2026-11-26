@@ -1,0 +1,106 @@
+{
+  "name": "SCTEC - Registro de analise de estoque",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "analise-estoque",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "88ab0665-c0c2-419b-bb07-f1be1e077910",
+      "name": "Webhook",
+      "webhookId": "e0632676-33bf-422c-bb8d-faac418a4d73"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "97f21e06-6381-42e6-9b14-5709137f15d0",
+              "name": "evento",
+              "value": "={{ $json.body.evento }}",
+              "type": "string"
+            },
+            {
+              "id": "6f445a7a-f519-40a2-bcc2-344be9277be4",
+              "name": "codigo",
+              "value": "={{ $json.body.produto.codigo }}",
+              "type": "string"
+            },
+            {
+              "id": "689eb4dc-d8b6-4ef9-823f-9d52f6e57a43",
+              "name": "nome",
+              "value": "={{ $json.body.produto.nome }}",
+              "type": "string"
+            },
+            {
+              "id": "d2cf4aba-afe9-45a7-a8dc-8851e53700f7",
+              "name": "quantidade_atual",
+              "value": "={{ $json.body.produto.quantidade_atual }}",
+              "type": "number"
+            },
+            {
+              "id": "6d57ed18-6d5e-4838-8f6e-a4379fc2dffd",
+              "name": "estoque_minimo",
+              "value": "={{ $json.body.produto.estoque_minimo }}",
+              "type": "number"
+            },
+            {
+              "id": "f549ad06-9b83-45d6-a1a6-4df5ae203e7b",
+              "name": "unidade",
+              "value": "={{ $json.body.produto.unidade }}",
+              "type": "string"
+            },
+            {
+              "id": "923b6df4-6367-42ec-872e-36943f93b82b",
+              "name": "situacao",
+              "value": "={{ $json.body.produto.situacao }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        224,
+        0
+      ],
+      "id": "d8d4a619-f39a-4df6-9e5f-97afab611ff9",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "e33e784c-5e14-4cdd-885d-a36c157759d3",
+  "meta": {
+    "instanceId": "eb77b0dcef24d05cc4d28ec7cf8f77793932bafe55cf7f8609652a186ee1cc72"
+  },
+  "nodeGroups": [],
+  "id": "xWOsO7k0ZG26peWn",
+  "tags": []
+}
