@@ -41,3 +41,12 @@ apresentados e a decisão de utilizar ou não a ferramenta.
 
 As capturas estão sendo coletadas durante o desenvolvimento.
 Sua inclusão no repositório e os links serão organizados antes da entrega.
+
+## Cenário adicional — Solicitação ambígua
+
+- Entrada: `Esse produto está acabando?`
+- Esperado: solicitar o código do produto, sem executar a ferramenta
+  nem inventar informações de estoque.
+- Observado: zero execuções de ferramenta e solicitação de um código
+  no formato PRD-XXX.
+- Evidência: captura `06-agente-solicitacao-ambigua.png`.
