@@ -198,3 +198,83 @@ acesso à OpenAI ou conexão com o n8n.
 
 Os testes manuais do agente completo estão documentados em
 [docs/testes-agente.md](docs/testes-agente.md).
+
+
+
+## Configurar a automação no n8n
+
+### Finalidade
+
+Receber análises produzidas pela aplicação Python e organizar os dados
+em uma saída observável no histórico de execuções.
+
+O workflow possui dois nós:
+
+1. Webhook: recebe um POST com o evento `estoque.analisado`.
+2. Edit Fields: seleciona evento, código, nome, quantidade atual,
+   estoque mínimo, unidade e situação.
+
+As decisões do LLM, o estado e a execução da ferramenta permanecem
+no LangGraph. O n8n não executa outro agente.
+
+### Importar e configurar
+
+1. Acesse seu ambiente n8n Cloud ou local.
+2. Crie um workflow e abra o menu de opções.
+3. Selecione Import from File e escolha
+   `workflows/analise-estoque.json`.
+4. Confira o Webhook: método POST, caminho `analise-estoque`
+   e resposta Immediately.
+5. Publique ou ative o workflow, conforme a interface disponível.
+6. Copie a Production URL exibida pelo nó Webhook.
+7. Configure essa URL em `N8N_WEBHOOK_URL` no `.env` do agente.
+
+A Test URL exige escuta manual por Listen for test event.
+Para execução automática, utilize a Production URL com o workflow ativo.
+
+### Verificar a integração
+
+Execute o agente e consulte o produto PRD-001.
+
+No terminal, confira o resultado do envio. No n8n, abra Executions,
+selecione a nova execução e verifique a conclusão dos dois nós e
+o OUTPUT do Edit Fields.
+
+O HTTP de sucesso confirma o recebimento pelo Webhook.
+A conclusão do workflow deve ser conferida no n8n.
+
+O Python envia os dados ao n8n Cloud; o Cloud não precisa acessar
+a API local de estoque. Não é necessário publicar essa API na internet.
+
+## Limitações e controles
+
+- Protótipo acadêmico com dados fictícios, sem implantação em produção.
+- Consultas por código no formato PRD-XXX; não realiza cadastro,
+  edição ou exclusão de produtos.
+- Sem memória entre execuções independentes.
+- A redação e a decisão de uso de ferramenta dependem do LLM.
+  As instruções orientam seu comportamento, mas não garantem
+  cumprimento em todas as entradas possíveis.
+- Entradas e dados de produtos são validados com Pydantic.
+- Falhas HTTP, de comunicação, timeout e respostas inválidas
+  recebem tratamento no cliente da API.
+- A execução do grafo possui limite de passos.
+- A integração n8n é opcional e faz uma tentativa por envio,
+  sem fila, reenvio automático ou garantia de entrega.
+- Uma falha de envio ao n8n não remove a resposta já apresentada
+  ao usuário.
+- O Webhook demonstrado não utiliza autenticação e recebe somente
+  dados fictícios. Autenticação seria necessária para ampliar
+  o uso além deste ambiente demonstrativo.
+- O ambiente n8n Cloud utilizado na demonstração depende de um trial.
+  O JSON exportado permite recriar o workflow em outra instância,
+  ajustando sua configuração.
+- Credenciais ficam no `.env` local, ignorado pelo Git.
+
+## Vídeo demonstrativo
+
+Link: a inserir após a gravação.
+
+A apresentação terá duração máxima de cinco minutos e demonstrará
+o problema, o fluxo LangGraph, a ferramenta integrada à API,
+a automação n8n e um cenário de erro ou limitação.
