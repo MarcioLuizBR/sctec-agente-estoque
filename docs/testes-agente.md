@@ -50,3 +50,29 @@ Sua inclusão no repositório e os links serão organizados antes da entrega.
 - Observado: zero execuções de ferramenta e solicitação de um código
   no formato PRD-XXX.
 - Evidência: captura `06-agente-solicitacao-ambigua.png`.
+
+## Integração complementar com n8n
+
+O workflow recebe análises pelo Webhook e organiza os dados no Edit Fields.
+O envio utiliza o resultado estruturado da ferramenta, sem nova consulta
+à API e sem extrair informações da resposta textual do LLM.
+
+### Análise bem-sucedida
+
+- Entrada: `Qual é a situação do estoque do produto PRD-001?`
+- Esperado: responder com os dados consultados e enviar a análise ao n8n.
+- Observado: uma execução da ferramenta, estoque baixo, envio HTTP 200
+  e execução ID 5 concluída como Succeeded no n8n.
+- Evidências: `10-agente-integrado-n8n.png` e
+  `11-workflow-executado-pelo-agente.png`.
+
+### Caminhos sem envio
+
+- Pergunta conceitual: zero execuções de ferramenta e nenhum envio.
+- Produto PRD-999: ferramenta retornou HTTP 404 e nenhum envio.
+- Após ambas as verificações, a execução mais recente do n8n permaneceu
+  sendo a ID 5.
+
+A confirmação HTTP do Webhook indica recebimento. A conclusão do
+processamento foi conferida separadamente na aba Executions do n8n.
+
