@@ -76,3 +76,15 @@ O envio utiliza o resultado estruturado da ferramenta, sem nova consulta
 A confirmação HTTP do Webhook indica recebimento. A conclusão do
 processamento foi conferida separadamente na aba Executions do n8n.
 
+### Falha de comunicação com o n8n
+
+- Procedimento: substituir N8N_WEBHOOK_URL apenas no processo de teste
+  por http://127.0.0.1:1/webhook/analise-estoque.
+- Entrada: `Qual é a situação do estoque do produto PRD-001?`
+- Esperado: apresentar a análise e informar a falha do envio,
+  sem interromper o programa.
+- Observado: uma execução da ferramenta, resposta com quantidade 5,
+  mínimo 10 e estoque baixo; envio retornou status `falhou`
+  e motivo `falha_comunicacao`.
+- Evidência: captura `12-agente-falha-n8n.png`.
+- O arquivo .env não foi alterado pela simulação.
