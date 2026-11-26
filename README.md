@@ -40,6 +40,26 @@ A execução pelo terminal possui limite de oito passos do LangGraph.
 Perguntas conceituais podem ser respondidas sem ferramenta.
 Cada execução começa sem memória de conversas anteriores.
 
+
+### Fluxo do agente
+
+```mermaid
+flowchart TD
+    inicio["Início"] --> agente["Agente LLM"]
+    agente --> decisao{"Solicitou ferramenta?"}
+    decisao -->|Sim| ferramentas["Consultar API e classificar estoque"]
+    ferramentas --> agente
+    decisao -->|Não| fim["Encerramento"]
+```
+
+A decisão condicional é implementada por `tools_condition`.
+O nó de ferramentas utiliza `ToolNode`, e seu resultado retorna ao agente
+como mensagem no estado compartilhado.
+
+Após o encerramento do grafo, o programa principal apresenta a resposta
+e envia as análises bem-sucedidas ao n8n, quando configurado.
+
+
 ## Regras de classificação
 
 | Condição | Situação |
