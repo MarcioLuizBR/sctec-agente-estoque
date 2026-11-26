@@ -39,8 +39,9 @@ apresentados e a decisão de utilizar ou não a ferramenta.
 
 ## Organização das evidências
 
-As capturas estão sendo coletadas durante o desenvolvimento.
-Sua inclusão no repositório e os links serão organizados antes da entrega.
+As capturas dos três cenários obrigatórios e da execução do n8n estão
+disponíveis na pasta `docs/evidencias` e apresentadas ao final deste documento.
+As demais capturas mencionadas são materiais de apoio coletados para o vídeo.
 
 ## Cenário adicional — Solicitação ambígua
 
@@ -88,3 +89,21 @@ processamento foi conferida separadamente na aba Executions do n8n.
   e motivo `falha_comunicacao`.
 - Evidência: captura `12-agente-falha-n8n.png`.
 - O arquivo .env não foi alterado pela simulação.
+
+## Capturas disponíveis no repositório
+
+### Produto existente
+
+![Consulta de produto existente com dados e classificação](evidencias/03-primeira-execucao-agente.jpg)
+
+### Pergunta conceitual
+
+![Resposta conceitual sem execução de ferramenta](evidencias/04-agente-pergunta-conceitual.jpg)
+
+### Produto inexistente
+
+![Tratamento de produto inexistente sem inventar dados](evidencias/05-agente-produto-inexistente.jpg)
+
+### Execução do workflow n8n
+
+![Workflow executado com sucesso após análise do agente](evidencias/11-workflow-executado-pelo-agente.jpg)
